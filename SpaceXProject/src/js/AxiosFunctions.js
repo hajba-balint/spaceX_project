@@ -1,4 +1,5 @@
 import axios from "axios";
+import Rocket from "./Rocket";
 
 const Axios = axios.create({
     baseURL: "https://api.spacexdata.com/v5/",
@@ -9,10 +10,11 @@ const Axios = axios.create({
 
 export default{
     async GetAllData(){
-        return axios.get("/launches")
+        return Axios.get("/launches")
             .then((res) => {
-                let formatteddata = {}
-                formatteddata.rocket
-            })
+                return res.data;
+            }).catch((err) => {
+                console.log(err);
+            });
     }
 }
