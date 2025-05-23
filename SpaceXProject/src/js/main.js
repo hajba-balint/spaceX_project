@@ -1,45 +1,58 @@
-import Rocket from "./Rocket.js";
-import AxiosFunctions from "./AxiosFunctions.js";
+import Launches from "./RoutingClasses/launches.js";
 
-const Table = document.querySelector("#TableTbody");
+// Routing(needs to be implemented for the navbar to work)
+const ROUTINGTARGET = document.querySelector("#root");
 
-const TableLoader = async () => {
-    const data = await AxiosFunctions.GetAllData();
-    data.forEach(d => {
-        let CrewString = "";
-        d.crew.forEach(dc => {
-            CrewString += `${dc.role} <br>`;
-        });
-        console.log(d.crew);
-        if (d.crew.length == 0) {
-            CrewString = "Unmanned Mission";
-        }
+const PAGESFOLDER = "/src/pages/"
 
-        let CapsuleString = "";
-        d.capsules.forEach(dc => {
-            CapsuleString += `${dc} `;
-        })
-        if (d.capsules.length == 0) {
-            CapsuleString = "No Capsule";
-        }
+const NavLinks = document.querySelectorAll("a[data-href]");
 
-        let PayloadString = "";
-        d.payloads.forEach(dp => {
-            PayloadString += `${dp} `;
-        })
-        if (d.payloads.length == 0) {
-            PayloadString = "No Payload";
-        }
-        Table.innerHTML += `
-            <tr>
-                <td>${d.rocket}</td>
-                <td>${CrewString}</td>
-                <td>${CapsuleString}</td>
-                <td>${PayloadString}</td>
-                <td>${d.date_local}</td>
-            </tr>
-        `
-    });
+const RoutingTable = {
+    "/" : {page: "home.html", code: null},
+    "/launches" : {page: "launches.html", code: Launches},
+    "/about" : {page: "about.html", code: null},
 }
 
-TableLoader();
+const LoadPage = async (page) => {
+    const resp = await fetch(PAGESFOLDER+page);
+    const convresp = await resp.text();
+    return convresp;
+}
+
+const NavClickEvent = async (event) => {
+    event.preventDefault();
+    let page = event.target.dataset.href;
+    let data = await LoadPage(RoutingTable[page].page);
+    ROUTINGTARGET.innerHTML = data;
+    DynCode(RoutingTable[page].code)
+    window.history.pushState({},"",page)
+}
+
+const DynCode = (code) => {
+    if (code != null) {
+        let DynamicCode = eval(code);
+        new DynamicCode();
+    }
+}
+
+window.addEventListener("popstate", async () => {
+    const data = await LoadPage(RoutingTable[window.location.pathname].page);
+    ROUTINGTARGET.innerHTML = data;
+    DynCode(RoutingTable[window.location.pathname].code);
+})
+
+window.addEventListener("load", async () => {
+    const data = await LoadPage(RoutingTable[window.location.pathname].page);
+    ROUTINGTARGET.innerHTML = data;
+    DynCode(RoutingTable[window.location.pathname].code);
+
+})
+
+NavLinks.forEach(NavI => {
+    NavI.addEventListener("click", NavClickEvent)
+})
+
+
+// END ROUTING
+
+
