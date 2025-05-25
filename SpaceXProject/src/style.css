@@ -19,30 +19,28 @@ p{
 }
 
 .imgs{
+    margin: auto;
+    display: block;
     padding: 30px;
+    width: 800px;
 }
 
 #elonImg{
+    padding: 30px;
     float: right;
     width: 400px;
 }
 
 #launch4{
-    margin: auto;
-    display: block;
     width: 700px;
 }
 
 #launch2{
-    margin: auto;
-    display: block;
     width: 700px;
 }
 
-#starship{
-    margin: auto;
-    display: block;
-    width: 800px;
+#logoImg{
+    width: 500px;
 }
 
 .arrow{
@@ -64,4 +62,11 @@ p{
     width: 300px;
     padding: 30px;
     font-size: 25px;
+}
+
+#readMore{
+    margin: auto;
+    display: block;
+    width: 160px;
+    cursor: pointer;
 }
