@@ -1,0 +1,50 @@
+*{
+    font-family: 'Brandon Grotesque','brandon-grotesque',Helvetica,sans-serif;
+    scroll-behavior: smooth;
+}
+
+h1, h2{
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+p{
+    font-size: 20px;
+    text-align: justify;
+}
+
+.imgs{
+    padding: 30px;
+}
+
+#elonImg{
+    float: right;
+    width: 400px;
+}
+
+#launch4{
+    margin: auto;
+    display: block;
+    width: 700px;
+}
+
+#launch2{
+    margin: auto;
+    display: block;
+    width: 700px;
+}
+
+#starship{
+    margin: auto;
+    display: block;
+    width: 800px;
+}
+
+.arrow{
+    margin: auto;
+    display: block;
+    width: 50px;
+    margin-top: 60px;
+    margin-bottom: 50px;
+}
