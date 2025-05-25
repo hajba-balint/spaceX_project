@@ -3,6 +3,10 @@
     scroll-behavior: smooth;
 }
 
+table{
+    table-layout: fixed;
+}
+
 h1, h2{
     text-align: center;
     margin-top: 40px;
@@ -47,4 +51,5 @@ p{
     width: 50px;
     margin-top: 60px;
     margin-bottom: 50px;
+    cursor: pointer;
 }

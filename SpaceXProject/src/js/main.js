@@ -55,4 +55,10 @@ NavLinks.forEach(NavI => {
 
 // END ROUTING
 
+// scroll to the top
+var top = document.querySelector("#top");
+var button = document.querySelector("#topButton");
 
+button.addEventListener("click", () => {
+    top.scrollIntoView();
+})
