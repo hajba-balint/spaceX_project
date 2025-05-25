@@ -57,3 +57,11 @@ p{
 .card{
     margin: 30px;
 }
+
+#launchesBtn{
+    margin: auto;
+    display: block;
+    width: 300px;
+    padding: 30px;
+    font-size: 25px;
+}
