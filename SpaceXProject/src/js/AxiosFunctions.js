@@ -48,5 +48,13 @@ export default{
             }).catch((err) => {
                 console.log(err);
             });
+    },
+    async GetAllDataByID(path,id){
+        return Axios.get(`${path}/${id}`)
+            .then((res) => {
+                return res.data;
+            }).catch((err) => {
+                console.log(err);
+            });
     }
 }
