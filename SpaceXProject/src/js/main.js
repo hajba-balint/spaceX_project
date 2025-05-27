@@ -1,6 +1,7 @@
 import About from "./about.js";
 import Launches from "./RoutingClasses/launches.js";
 import Details from "./RoutingClasses/details.js";
+import Quiz from "./RoutingClasses/quiz.js";
 
 // Routing(needs to be implemented for the navbar to work)
 const ROUTINGTARGET = document.querySelector("#root");
@@ -13,7 +14,8 @@ const RoutingTable = {
     "/" : {page: "home.html", code: null},
     "/launches" : {page: "launches.html", code: Launches},
     "/about" : {page: "about.html", code: About},
-    "/details": {page: "details.html", code: Details}
+    "/details": {page: "details.html", code: Details},
+    "/quiz": {page: "quiz.html", code: Quiz}
 }
 
 const LoadPage = async (page) => {
