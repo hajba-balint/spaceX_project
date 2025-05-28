@@ -13,10 +13,16 @@ export default class Details{
             document.querySelector("#PayloadSelect").style.visibility = "hidden";
             const SelectedIdData = await AxiosFunctions.GetAllDataByID("/crew",event.target.value)
             this.DataTarget.innerHTML = `
-                <img src='${SelectedIdData.image}' alt='...'>
-                <h1>${SelectedIdData.name}</h1>
-                <p>Employed by: <b>${SelectedIdData.agency}</b></p>
-                <p>Current Status: <b>${SelectedIdData.status}</b></p>
+            <div class='col-lg-3 col-md-6 col-sm-12 m-auto'>
+                <div class='card'>
+                    <img src='${SelectedIdData.image}' alt='...' max-width='400px'>
+                    <div class='card-body'>
+                        <h3 class='text-center mb-3'>${SelectedIdData.name}</h3>
+                        <p>Employed by: <b>${SelectedIdData.agency}</b></p>
+                        <p>Current Status: <b>${SelectedIdData.status}</b></p>
+                    </div>
+                </div>
+            </div>
             `;
         });
         document.querySelector("#CapsuleSelect").addEventListener("change", async (event) => {
