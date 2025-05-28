@@ -1,11 +1,37 @@
 <h1>SpaceX Quiz</h1>
-<p><b>Description:</b></p>
-<p>Press the generate buttons to generate a new question, in 1 of 4 categories:<br><b>Launches, Capsules, Crew, Payloads</b></p>
-<p><b>1</b> information will be missing, fill it in and check</p>
-<div id="QuizUI">
-    <button type="button" id="NewLaunch" class="btn btn-success" value="1">Generate New Launch question</button>
-    <button type="button" id="NewCapsule" class="btn btn-success" value="2">Generate New Capsule question</button>
-    <button type="button" id="NewCrew" class="btn btn-success" value="3">Generate New Crew question</button>
-    <button type="button" id="NewPayload" class="btn btn-success" value="4">Generate New Payload question</button>
-    <h4>Score: <span id="ScoreCorrect">0</span>/<span id="ScoreSum">0</span></h4>
+<div class="container">
+    <p class="text-justify">Press the generate buttons to generate a new question, in 1 of 4 categories:</p>
+            <ul><b>
+                <li>Launches</li>
+                <li>Capsules</li>
+                <li>Crew</li>
+                <li>Payloads</li>
+            </b></ul>
+    <p><b>1</b> information will be missing, fill it in and check</p>
+    <div id="QuizUI" class="row">
+        <div class="col-sm-3">
+            <div class="card">
+                <button type="button" id="NewLaunch" class="btn btn-success" value="1">Generate New Launch
+                    question</button>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card">
+                <button type="button" id="NewCapsule" class="btn btn-success" value="2">Generate New Capsule
+                    question</button>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card">
+                <button type="button" id="NewCrew" class="btn btn-success" value="3">Generate New Crew question</button>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card">
+                <button type="button" id="NewPayload" class="btn btn-success" value="4">Generate New Payload
+                    question</button>
+            </div>
+        </div>
+        <h4 class="my-3">Score: <span id="ScoreCorrect">0</span>/<span id="ScoreSum">0</span></h4>
+    </div>
 </div>

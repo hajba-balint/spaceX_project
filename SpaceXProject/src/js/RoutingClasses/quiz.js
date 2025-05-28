@@ -15,12 +15,12 @@ export default class Quiz{
                 btnNew.id = "CheckBtn";
                 btnNew.addEventListener("click", () => {
                     document.querySelectorAll(".btn").forEach(btn2 => {
-                        btn2.style.visibility = "visible";
+                        btn2.disabled = false;
                     });
                     this.QuizUI.removeChild(btnNew);
                 });
                 document.querySelectorAll(".btn").forEach(btn2 => {
-                    btn2.style.visibility = "hidden";
+                    btn2.disabled = true;
                 })
                 this.QuizHeadGenerator(Number(btn.value));
                 this.QuizUI.appendChild(btnNew);
@@ -151,7 +151,7 @@ export default class Quiz{
             }
         });
         return CNAME;
-    } 
+    }
 
     // END
 
