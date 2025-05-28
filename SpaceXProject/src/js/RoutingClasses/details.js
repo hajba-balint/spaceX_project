@@ -2,7 +2,6 @@ import AxiosFunctions from "../AxiosFunctions.js";
 
 export default class Details{
     constructor() {
-        this.HideTopButton();
         this.FillSelects();
         this.DataTarget = document.querySelector("#DataTarget");
         document.querySelector("#CrewSelect").addEventListener("change", async (event) => {
@@ -10,11 +9,13 @@ export default class Details{
                 this.NullOptionHandler();
                 return;
             }
-            document.querySelector("#CapsuleSelect").style.visibility = "hidden";
-            document.querySelector("#PayloadSelect").style.visibility = "hidden";
+            document.querySelector("#CapsuleSelect").disabled = true;
+            document.querySelector("#lbCapsuleSelect").disabled = true;
+            document.querySelector("#PayloadSelect").disabled = true;
+            document.querySelector("#lbPayloadSelect").disabled = true;
             const SelectedIdData = await AxiosFunctions.GetAllDataByID("/crew",event.target.value)
             this.DataTarget.innerHTML = `
-            <div class='col-lg-3 col-md-6 col-sm-12 m-auto'>
+            <div class='col-lg-4 col-md-6 col-sm-12 m-auto'>
                 <div class='card'>
                     <img src='${SelectedIdData.image}' alt='...' max-width='400px'>
                     <div class='card-body'>
@@ -31,14 +32,16 @@ export default class Details{
                 this.NullOptionHandler()
                 return;
             }
-            document.querySelector("#CrewSelect").style.visibility = "hidden";
-            document.querySelector("#PayloadSelect").style.visibility = "hidden";
+            document.querySelector("#CrewSelect").disabled = true;
+            document.querySelector("#lbCrewSelect").disabled = true;
+            document.querySelector("#PayloadSelect").disabled = true;
+            document.querySelector("#lbPayloadSelect").disabled = true;
             const SelectedIdData = await AxiosFunctions.GetAllDataByID("/capsules",event.target.value)
             this.DataTarget.innerHTML = `
-            <div class='col-lg-3 col-md-6 col-sm-12 m-auto'>
+            <div class='col-lg-4 col-md-6 col-sm-12 m-auto'>
                 <div class='card'>
-                    <div class='card-body'>
-                        <h1>${SelectedIdData.type}(<b>${SelectedIdData.serial}</b>)</h1>
+                    <div class='card-body text-center'>
+                        <h3>${SelectedIdData.type}(<b>${SelectedIdData.serial}</b>)</h3>
                         <p><b>Status: </b>${SelectedIdData.status}</p>
                         <p><b>Last Update: </b>${ SelectedIdData.last_update != null ? SelectedIdData.last_update : "No Information available"}</p>
                     </div>
@@ -51,16 +54,18 @@ export default class Details{
                 this.NullOptionHandler();
                 return;
             }
-            document.querySelector("#CapsuleSelect").style.visibility = "hidden";
-            document.querySelector("#CrewSelect").style.visibility = "hidden";
+            document.querySelector("#CapsuleSelect").disabled = true;
+            document.querySelector("#lbCapsuleSelect").disabled = true;
+            document.querySelector("#CrewSelect").disabled = true;
+            document.querySelector("#lbCrewSelect").disabled = true;
             const SelectedIdData = await AxiosFunctions.GetAllDataByID("/payloads",event.target.value)
             let ManufacturerConcat = SelectedIdData.manufacturers.join(", ");
             let CustomerConcat = SelectedIdData.customers.join(", ");
             this.DataTarget.innerHTML = `
-            <div class='col-lg-3 col-md-6 col-sm-12 m-auto'>
+            <div class='col-lg-4 col-md-6 col-sm-12 m-auto'>
                 <div class='card'>
                     <div class='card-body'>
-                        <h1>${SelectedIdData.name}</h1>
+                        <h3 class='my-3 text-center'>${SelectedIdData.name}</h3>
                         <p><b>Type:</b> ${SelectedIdData.type}</p>
                         <p><b>Manufacturer(s): </b>${ManufacturerConcat}</p>
                         <p><b>Customer(s): </b>${CustomerConcat}</p>
@@ -100,19 +105,16 @@ export default class Details{
 
     VisReset()
     {
-        document.querySelector("#CapsuleSelect").style.visibility = "visible";
-        document.querySelector("#PayloadSelect").style.visibility = "visible";
-        document.querySelector("#CrewSelect").style.visibility = "visible";
+        document.querySelector("#CapsuleSelect").disabled = false;
+        document.querySelector("#lbCapsuleSelect").disabled = false;
+        document.querySelector("#PayloadSelect").disabled = false;
+        document.querySelector("#lbPayloadSelect").disabled = false;
+        document.querySelector("#CrewSelect").disabled = false;
+        document.querySelector("#lbCrewSelect").disabled = false;
     }
 
     NullOptionHandler(){
         this.DataTarget.innerHTML = "";
         this.VisReset();
     }
-
-    HideTopButton(){
-        document.querySelector("#topButton").style.display = "none";
-    }
-
-
 }
