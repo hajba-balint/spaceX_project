@@ -71,7 +71,7 @@ export default class Quiz{
                 <p>Payload: ${PayloadString}</p>
                 <p>Launch date: ${RandomData.date_local}</p>
                 <form id="QForm">
-                    <label for="Q" class="form-label">What is the name of the rocket</label>
+                    <label for="Q" class="form-label">What is the name of the rocket used in this mission?</label>
                     <input type="text" class="form-control" id="QAnswer">
                 </form>
             `;
@@ -91,16 +91,145 @@ export default class Quiz{
                 }
                 this.QuizUI.removeChild(QDiv);
             })
+
+        }
+        if (ClickedBtnValue == 2) {
+            let MaxNum = CapsuleData.length - 1;
+            let RandNum = Math.floor((Math.random()) * MaxNum) + 1
+            let RandomData = CapsuleData[RandNum];
+            let QDiv = document.createElement("div");
+            QDiv.classList.add("card")
+
+            QDiv.innerHTML = `
+                <p>Capsule name: ${RandomData.type}(${RandomData.serial}) </p>
+                <p>Status: <b>MISSING</b></p>
+                <p>Last update: ${RandomData.last_update}</p>
+                <form id="QForm">
+                    <label for="Q" class="form-label">What is the status of the capsule?</label>
+                    <input type="text" class="form-control" id="QAnswer">
+                </form>
+            `;
+
+            this.QuizUI.appendChild(QDiv);
+
+            document.querySelector("#CheckBtn").addEventListener("click", () => {
+                if(this.CheckAnswers(ClickedBtnValue,RandomData) == true){
+                    this.ScoreCorrect++;
+                    this.ScoreCorrectHTML.innerHTML = this.ScoreCorrect;
+                    this.ScoreSum++;
+                    this.ScoreSumHTML.innerHTML = this.ScoreSum;
+                }
+                else{
+                    this.ScoreSum++;
+                    this.ScoreSumHTML.innerHTML = this.ScoreSum; 
+                }
+                this.QuizUI.removeChild(QDiv);
+            })
+        }
+        if (ClickedBtnValue == 3) {
+            let MaxNum = CrewData.length - 1;
+            let RandNum = Math.floor((Math.random()) * MaxNum) + 1
+            let RandomData = CrewData[RandNum];
+            let QDiv = document.createElement("div");
+            QDiv.classList.add("card")
+
+            QDiv.innerHTML = `
+                <p>Name: ${RandomData.name}</p>
+                <p>Employed by: <b>MISSING</b></p>
+                <p>Status: ${RandomData.status}</p>
+                <form id="QForm">
+                    <label for="Q" class="form-label">Who employs this person?</label>
+                    <input type="text" class="form-control" id="QAnswer">
+                </form>
+            `;
+
+            this.QuizUI.appendChild(QDiv);
+
+            document.querySelector("#CheckBtn").addEventListener("click", () => {
+                if(this.CheckAnswers(ClickedBtnValue,RandomData) == true){
+                    this.ScoreCorrect++;
+                    this.ScoreCorrectHTML.innerHTML = this.ScoreCorrect;
+                    this.ScoreSum++;
+                    this.ScoreSumHTML.innerHTML = this.ScoreSum;
+                }
+                else{
+                    this.ScoreSum++;
+                    this.ScoreSumHTML.innerHTML = this.ScoreSum; 
+                }
+                this.QuizUI.removeChild(QDiv);
+            })
+        }
+        if (ClickedBtnValue == 4) {
+            let MaxNum = PayloadData.length - 1;
+            let RandNum = Math.floor((Math.random()) * MaxNum) + 1
+            let RandomData = PayloadData[RandNum];
+            while (RandomData.manufacturers == null || RandomData.customers == null) { // some payloads don't have this info
+                let RandNum = Math.floor((Math.random()) * MaxNum) + 1
+                let RandomData = PayloadData[RandNum];
+            }
+            let QDiv = document.createElement("div");
+            QDiv.classList.add("card")
+
+            let ManufacturerConcat = RandomData.manufacturers.join(", ");
+            let CustomerConcat = RandomData.customers.join(", ");
+
+            QDiv.innerHTML = `
+                <p>Name: ${RandomData.name}</p>
+                <p>Type: <b>MISSING</b></p>
+                <p>Manufacturer(s): ${ManufacturerConcat}</p>
+                <p>Customer(s): ${CustomerConcat}</p>
+                <form id="QForm">
+                    <label for="Q" class="form-label">What is the type of this payload?</label>
+                    <input type="text" class="form-control" id="QAnswer">
+                </form>
+            `;
+
+            this.QuizUI.appendChild(QDiv);
+
+            document.querySelector("#CheckBtn").addEventListener("click", () => {
+                if(this.CheckAnswers(ClickedBtnValue,RandomData) == true){
+                    this.ScoreCorrect++;
+                    this.ScoreCorrectHTML.innerHTML = this.ScoreCorrect;
+                    this.ScoreSum++;
+                    this.ScoreSumHTML.innerHTML = this.ScoreSum;
+                }
+                else{
+                    this.ScoreSum++;
+                    this.ScoreSumHTML.innerHTML = this.ScoreSum; 
+                }
+                this.QuizUI.removeChild(QDiv);
+            })
         }
     }
 
-    CheckAnswers(QType, RocketData = "", RocketID = ""){
+    CheckAnswers(QType, Data = "", RocketID = ""){
         if (QType == 1) {
-            let ConvRocketString = this.RocketIdConverter(RocketData,RocketID).toLowerCase();
+            let ConvRocketString = this.RocketIdConverter(Data,RocketID).toLowerCase();
             console.log(ConvRocketString);
             console.log((document.querySelector("#QAnswer").value).toLowerCase());
             if (((document.querySelector("#QAnswer").value).toLowerCase()) === ConvRocketString) {
                 console.log((document.querySelector("#QAnswer").value).toLowerCase());
+                console.log("PASs");
+                return true;
+            }
+            return false;
+        }
+        if (QType == 2) {
+            if ((document.querySelector("#QAnswer").value).toLowerCase() == (Data.status).toLowerCase()) {
+                console.log("PASs");
+                return true;
+            }
+            return false;
+        }
+        if (QType == 3) {
+            if ((document.querySelector("#QAnswer").value).toLowerCase() == (Data.agency).toLowerCase()) {
+                console.log("PASs");
+                return true;
+            }
+            return false;
+        }
+        if (QType == 4) {
+            if ((document.querySelector("#QAnswer").value).toLowerCase() == (Data.type).toLowerCase()) {
                 console.log("PASs");
                 return true;
             }
