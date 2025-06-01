@@ -70,3 +70,12 @@ p{
     width: 160px;
     cursor: pointer;
 }
+
+.quizcard{
+    padding: 15px;
+}
+
+#CheckBtn{
+    width: 200px;
+    margin: auto;
+}

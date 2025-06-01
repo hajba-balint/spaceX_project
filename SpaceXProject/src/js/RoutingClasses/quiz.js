@@ -1,6 +1,6 @@
 import AxiosFunctions from "../AxiosFunctions.js";
 
-export default class Quiz{
+export default class Quiz {
     constructor() {
         this.QuizUI = document.querySelector("#QuizUI");
         this.ScoreSumHTML = document.querySelector("#ScoreSum");
@@ -28,7 +28,7 @@ export default class Quiz{
         })
     }
 
-    QuizHeadGenerator = async(ClickedBtnValue) => {
+    QuizHeadGenerator = async (ClickedBtnValue) => {
         const LaunchData = await AxiosFunctions.GetAllData();
         const CrewData = await AxiosFunctions.GetAllCrew();
         const CapsuleData = await AxiosFunctions.GetAllCapsules();
@@ -40,17 +40,18 @@ export default class Quiz{
             let RandomData = LaunchData[RandNum];
             let QDiv = document.createElement("div");
             QDiv.classList.add("card")
-            
+            QDiv.classList.add("quizcard")
+
             let CrewString = "";
             RandomData.crew.forEach(dc => {
-                CrewString += `${this.CrewIdConverter(CrewData,dc)} <br>`;
+                CrewString += `${this.CrewIdConverter(CrewData, dc)} <br>`;
             });
             if (RandomData.crew.length == 0) {
                 CrewString = "Unmanned Mission";
             }
             let CapsuleString = "";
             RandomData.capsules.forEach(dc => {
-                CapsuleString += `${this.CapsuleIdConverter(CapsuleData,dc)} <br>`;
+                CapsuleString += `${this.CapsuleIdConverter(CapsuleData, dc)} <br>`;
             })
             if (RandomData.capsules.length == 0) {
                 CapsuleString = "No Capsule";
@@ -58,12 +59,12 @@ export default class Quiz{
 
             let PayloadString = "";
             RandomData.payloads.forEach(dp => {
-                PayloadString += `${this.PayloadIdConverter(PayloadData,dp)} <br>`;
+                PayloadString += `${this.PayloadIdConverter(PayloadData, dp)} <br>`;
             })
             if (RandomData.payloads.length == 0) {
                 PayloadString = "No Payload";
             }
-            
+
             QDiv.innerHTML = `
                 <p>Rocket Name: <b>MISSING</b></p>
                 <p>Crew: ${CrewString}</p>
@@ -79,15 +80,15 @@ export default class Quiz{
             this.QuizUI.appendChild(QDiv);
 
             document.querySelector("#CheckBtn").addEventListener("click", () => {
-                if(this.CheckAnswers(ClickedBtnValue, RocketData, RandomData.rocket) == true){
+                if (this.CheckAnswers(ClickedBtnValue, RocketData, RandomData.rocket) == true) {
                     this.ScoreCorrect++;
                     this.ScoreCorrectHTML.innerHTML = this.ScoreCorrect;
                     this.ScoreSum++;
                     this.ScoreSumHTML.innerHTML = this.ScoreSum;
                 }
-                else{
+                else {
                     this.ScoreSum++;
-                    this.ScoreSumHTML.innerHTML = this.ScoreSum; 
+                    this.ScoreSumHTML.innerHTML = this.ScoreSum;
                 }
                 this.QuizUI.removeChild(QDiv);
             })
@@ -99,6 +100,7 @@ export default class Quiz{
             let RandomData = CapsuleData[RandNum];
             let QDiv = document.createElement("div");
             QDiv.classList.add("card")
+            QDiv.classList.add("quizcard")
 
             QDiv.innerHTML = `
                 <p>Capsule name: ${RandomData.type}(${RandomData.serial}) </p>
@@ -113,15 +115,15 @@ export default class Quiz{
             this.QuizUI.appendChild(QDiv);
 
             document.querySelector("#CheckBtn").addEventListener("click", () => {
-                if(this.CheckAnswers(ClickedBtnValue,RandomData) == true){
+                if (this.CheckAnswers(ClickedBtnValue, RandomData) == true) {
                     this.ScoreCorrect++;
                     this.ScoreCorrectHTML.innerHTML = this.ScoreCorrect;
                     this.ScoreSum++;
                     this.ScoreSumHTML.innerHTML = this.ScoreSum;
                 }
-                else{
+                else {
                     this.ScoreSum++;
-                    this.ScoreSumHTML.innerHTML = this.ScoreSum; 
+                    this.ScoreSumHTML.innerHTML = this.ScoreSum;
                 }
                 this.QuizUI.removeChild(QDiv);
             })
@@ -132,6 +134,7 @@ export default class Quiz{
             let RandomData = CrewData[RandNum];
             let QDiv = document.createElement("div");
             QDiv.classList.add("card")
+            QDiv.classList.add("quizcard")
 
             QDiv.innerHTML = `
                 <p>Name: ${RandomData.name}</p>
@@ -146,15 +149,15 @@ export default class Quiz{
             this.QuizUI.appendChild(QDiv);
 
             document.querySelector("#CheckBtn").addEventListener("click", () => {
-                if(this.CheckAnswers(ClickedBtnValue,RandomData) == true){
+                if (this.CheckAnswers(ClickedBtnValue, RandomData) == true) {
                     this.ScoreCorrect++;
                     this.ScoreCorrectHTML.innerHTML = this.ScoreCorrect;
                     this.ScoreSum++;
                     this.ScoreSumHTML.innerHTML = this.ScoreSum;
                 }
-                else{
+                else {
                     this.ScoreSum++;
-                    this.ScoreSumHTML.innerHTML = this.ScoreSum; 
+                    this.ScoreSumHTML.innerHTML = this.ScoreSum;
                 }
                 this.QuizUI.removeChild(QDiv);
             })
@@ -169,6 +172,7 @@ export default class Quiz{
             }
             let QDiv = document.createElement("div");
             QDiv.classList.add("card")
+            QDiv.classList.add("quizcard")
 
             let ManufacturerConcat = RandomData.manufacturers.join(", ");
             let CustomerConcat = RandomData.customers.join(", ");
@@ -187,24 +191,24 @@ export default class Quiz{
             this.QuizUI.appendChild(QDiv);
 
             document.querySelector("#CheckBtn").addEventListener("click", () => {
-                if(this.CheckAnswers(ClickedBtnValue,RandomData) == true){
+                if (this.CheckAnswers(ClickedBtnValue, RandomData) == true) {
                     this.ScoreCorrect++;
                     this.ScoreCorrectHTML.innerHTML = this.ScoreCorrect;
                     this.ScoreSum++;
                     this.ScoreSumHTML.innerHTML = this.ScoreSum;
                 }
-                else{
+                else {
                     this.ScoreSum++;
-                    this.ScoreSumHTML.innerHTML = this.ScoreSum; 
+                    this.ScoreSumHTML.innerHTML = this.ScoreSum;
                 }
                 this.QuizUI.removeChild(QDiv);
             })
         }
     }
 
-    CheckAnswers(QType, Data = "", RocketID = ""){
+    CheckAnswers(QType, Data = "", RocketID = "") {
         if (QType == 1) {
-            let ConvRocketString = this.RocketIdConverter(Data,RocketID).toLowerCase();
+            let ConvRocketString = this.RocketIdConverter(Data, RocketID).toLowerCase();
             console.log(ConvRocketString);
             console.log((document.querySelector("#QAnswer").value).toLowerCase());
             if (((document.querySelector("#QAnswer").value).toLowerCase()) === ConvRocketString) {
@@ -239,40 +243,40 @@ export default class Quiz{
 
     // launch converter functions
 
-    RocketIdConverter(RocketData,Id){
+    RocketIdConverter(RocketData, Id) {
         let RNAME = "";
         RocketData.forEach(R => {
             if (R.id == Id) {
                 RNAME = R.name;
-                
+
             }
         });
         return RNAME;
     }
 
-    CrewIdConverter(CrewData,Id){
+    CrewIdConverter(CrewData, Id) {
         let CNAME = "";
         CrewData.forEach(C => {
             if (C.id == Id) {
                 CNAME += C.name;
-                
+
             }
         });
         return CNAME;
     }
 
-    CapsuleIdConverter(CapsuleData,Id){
+    CapsuleIdConverter(CapsuleData, Id) {
         let CNAME = "";
         CapsuleData.forEach(C => {
             if (C.id == Id) {
                 CNAME += C.type;
-                
+
             }
         });
         return CNAME;
     }
 
-    PayloadIdConverter(PayloadData,Id){
+    PayloadIdConverter(PayloadData, Id) {
         let CNAME = "";
         PayloadData.forEach(C => {
             if (C.id == Id) {
